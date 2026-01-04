@@ -577,6 +577,9 @@ QVariantList getContractList(qlonglong creditorId, QDate startDate,
                             : dkdbstructur[contract::tnContracts][contract::fnId],
             qsl(" %1=%2 GROUP BY id").arg(contract::fnKreditorId, i2s(creditorId)));
 
+    // Get creditor data once for all contracts
+    creditor cred(creditorId);
+    
     for (const auto &id : std::as_const(ids)) {
         contract contr(id.toLongLong(), isTerminated);
         /* Forget contracts that don't exist in the period.
@@ -586,6 +589,10 @@ and contract must not have been finalized before start of period */
                 isTerminated && (contr.plannedEndDate() < startDate);
         if (contr.conclusionDate() <= endDate && oldFinalizedContract == false) {
             QVariantMap contractMap = contr.toVariantMap(startDate, endDate);
+            // Add creditor information to the contract map for template access
+            contractMap["Vorname"] = cred.firstname();
+            contractMap["Nachname"] = cred.lastname();
+            contractMap["Buchungskonto"] = cred.account();
             vl.append(contractMap);
         }
     }
