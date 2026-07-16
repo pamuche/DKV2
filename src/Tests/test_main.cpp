@@ -9,6 +9,7 @@
 #include "test_db.h"
 #include "test_dkdbhelper.h"
 #include "test_finance.h"
+#include "test_interestletterexport.h"
 #include "test_sqlhelper.h"
 #include "test_appconfig.h"
 #include "test_creditor.h"
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
 
         // no db
         tests.push_back(new test_finance);
+        tests.push_back(new test_interestletterexport);
         tests.push_back(new test_csv);
         tests.push_back(new test_dbfield);
 

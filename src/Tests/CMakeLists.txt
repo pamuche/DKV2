@@ -26,6 +26,8 @@ set(TEST_SOURCES
     test_dkdbhelper.h
     test_finance.cpp
     test_finance.h
+    test_interestletterexport.cpp
+    test_interestletterexport.h
     test_properties.cpp
     test_properties.h
     test_sqlhelper.cpp
@@ -60,6 +62,7 @@ set(DKV2_TEST_SOURCES
     ../DKV2/investment.cpp
     ../DKV2/helperfin.cpp
     ../DKV2/ibanvalidator.cpp
+    ../DKV2/mustache.cpp
     ../DKV2/tabledatainserter.cpp
 )
 
@@ -69,6 +72,7 @@ qt_add_executable(${TARGET} ${TEST_SOURCES} ${DKV2_TEST_SOURCES})
 # Compile definitions
 target_compile_definitions(${TARGET} PRIVATE
     $<$<CONFIG:Debug>:DKV2_TEST_DEBUG>
+    DKV2_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 )
 
 # Precompiled headers
